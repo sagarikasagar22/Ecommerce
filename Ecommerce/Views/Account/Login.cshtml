@@ -1,4 +1,4 @@
-﻿
+﻿@model Ecommerce.Models.Custom.CustomLogIn
 @{
     ViewBag.Title = "Login";
 
@@ -9,30 +9,39 @@
     <h2 class="text-center mt-5">SIGNIN</h2>
     <br />
     <div class="container">
-        <form action="#" method="post">
-            <div class="form-group">
-                <label class="col-form-label">Username</label>
-                <input type="text" class="form-control" placeholder=" " name="Name" required="">
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">Password</label>
-                <input type="password" class="form-control" placeholder=" " name="Password" required="">
-            </div>
-            <div class="right-w3l">
-                <input type="submit" class="form-control" value="Log in">
-            </div>
-            <div class="sub-w3l">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                    <label class="custom-control-label" for="customControlAutosizing">Remember me?</label>
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            if (@TempData["Message"] != null)
+            {
+                <section class="bg-danger text-center" style="color:aliceblue"> @TempData["Message"]</section>
+            }
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label class="col-form-label">UserName</label>
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your Email or Contact" } })
+                    @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
-            </div>
-            <p class="text-center dont-do mt-3">
-                Don't have an account?
-                <a href="#">
-                    Register Now
-                </a>
-            </p>
-        </form>
+                <div class="form-group">
+                    <label class="col-form-label">Password</label>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", @type = "password" } })
+                    @*<input type="password" class="form-control" placeholder=" " name="Password" required="">*@
+                </div>
+                <div class="right-w3l">
+                    <input type="submit" class="form-control" value="Log in">
+                </div>
+                <div class="sub-w3l">
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                        <label class="custom-control-label" for="customControlAutosizing">Remember me?</label>
+                    </div>
+                </div>
+                <p class="text-center dont-do mt-3">
+                    Don't have an account?
+                    <a href="@Url.Action("Registration","Account")">
+                        Register Now
+                    </a>
+                </p>
+            </form>
+        }
     </div>
 </div>

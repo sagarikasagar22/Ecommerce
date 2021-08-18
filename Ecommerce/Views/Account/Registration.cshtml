@@ -1,4 +1,4 @@
-﻿
+﻿@model Ecommerce.Models.User
 @{
     ViewBag.Title = "Registration";
     Layout = "~/Views/Shared/_Layout1.cshtml";
@@ -10,32 +10,60 @@
     <h2 class="text-center mt-5">SIGNUP</h2>
     <br />
     <div class="container">
-        <form action="#" method="post">
-            <div class="form-group">
-                <label class="col-form-label">Your Name</label>
-                <input type="text" class="form-control" placeholder=" " name="Name" required="">
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">Email</label>
-                <input type="email" class="form-control" placeholder=" " name="Email" required="">
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">Password</label>
-                <input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
-            </div>
-            <div class="form-group">
-                <label class="col-form-label">Confirm Password</label>
-                <input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
-            </div>
-            <div class="right-w3l">
-                <input type="submit" class="form-control" value="Register">
-            </div>
-            <div class="sub-w3l">
-                <div class="custom-control custom-checkbox mr-sm-2">
-                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing2">
-                    <label class="custom-control-label" for="customControlAutosizing2">I Accept to the Terms & Conditions</label>
+
+        @using (Html.BeginForm("Registration", "Account", FormMethod.Post))
+        {
+            if (@TempData["Message"] != null)
+            {
+                <section class="bg-success text-center" style="color:aliceblue"> @TempData["Message"]</section>
+            }
+
+            if (@TempData["ErrorMessage"] != null)
+            {
+                <section class="bg-danger text-center" style="color:aliceblue"> @TempData["ErrorMessage"]</section>
+            }
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label class="col-form-label">FirstName</label>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                    @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
-            </div>
-        </form>
+                <div class="form-group">
+                    <label class="col-form-label">LastName</label>
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                    @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Email</label>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email", @type = "email" } })
+                    @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Contact</label>
+                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Mobile Number", @type = "number" } })
+                    @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
+                </div>
+
+                <div class="form-group">
+                    <label class="col-form-label">Password</label>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", @type = "password" } })
+                    @*<input type="password" class="form-control" placeholder=" " name="Password" required="">*@
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Address</label>
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
+                    @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
+                </div>
+                <div class="right-w3l">
+                    <input type="submit" class="form-control" value="Register">
+                </div>
+                <div class="sub-w3l">
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing2">
+                        <label class="custom-control-label" for="customControlAutosizing2">I Accept to the Terms & Conditions</label>
+                    </div>
+                </div>
+            </form>
+        }
     </div>
 </div>

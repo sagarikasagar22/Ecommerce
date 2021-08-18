@@ -1025,7 +1025,7 @@ p.w3l-nut-middle {
 /*-- middle section --*/
 
 .join-w3l1 {
-    background: url(../images/bg.jpg) no-repeat center fixed;
+    background: url(../../images/bg.jpg) no-repeat center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -1299,7 +1299,7 @@ h2.footer-top-head-w3l {
     height: 64px;
     border: none;
     text-indent: 100%;
-    background: url("../images/move-up.png") no-repeat 0px 0px;
+    background: url("../../images/move-up.png") no-repeat 0px 0px;
 }
 
 #toTopHover {
@@ -1318,7 +1318,7 @@ h2.footer-top-head-w3l {
 /*-- inner pages --*/
 
 .page-head_agile_info_w3l {
-    background: url(../images/b1.jpg) no-repeat center;
+    background: url(../../images/b1.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -1328,7 +1328,7 @@ h2.footer-top-head-w3l {
 }
 
 .page-head_agile_info_w3l-2 {
-    background: url(../images/b3.jpg) no-repeat center;
+    background: url(../../images/b3.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -1578,7 +1578,7 @@ td.invert-image a img {
 .close1,
 .close2,
 .close3 {
-    background: url('../images/close_1.png') no-repeat 0px 0px;
+    background: url('../../images/close_1.png') no-repeat 0px 0px;
     cursor: pointer;
     width: 28px;
     height: 28px;
@@ -2051,7 +2051,7 @@ h3.title:before {
 /*-- testimonials --*/
 
 .testimonials {
-    background: url(../images/bg2.jpg) no-repeat center fixed;
+    background: url(../../images/bg2.jpg) no-repeat center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
