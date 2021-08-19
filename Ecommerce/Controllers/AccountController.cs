@@ -10,7 +10,7 @@ namespace Ecommerce.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+        
         private OnlineStoreDataEntities _context = new OnlineStoreDataEntities();
         // GET: Account
         public ActionResult Registration()

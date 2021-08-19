@@ -323,6 +323,9 @@
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Electronics\Index.cshtml" />
+    <Content Include="Views\Electronics\Product.cshtml" />
+    <Content Include="Views\Electronics\Checkout.cshtml" />
+    <Content Include="Views\Electronics\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

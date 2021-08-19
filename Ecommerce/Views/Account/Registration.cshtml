@@ -13,6 +13,8 @@
 
         @using (Html.BeginForm("Registration", "Account", FormMethod.Post))
         {
+            @Html.AntiForgeryToken()
+
             if (@TempData["Message"] != null)
             {
                 <section class="bg-success text-center" style="color:aliceblue"> @TempData["Message"]</section>
@@ -22,36 +24,43 @@
             {
                 <section class="bg-danger text-center" style="color:aliceblue"> @TempData["ErrorMessage"]</section>
             }
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <form action="#" method="post">
                 <div class="form-group">
                     <label class="col-form-label">FirstName</label>
                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                    @Html.ValidationMessageFor(model=>model.FirstName)
                     @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
                 <div class="form-group">
                     <label class="col-form-label">LastName</label>
                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                    @Html.ValidationMessageFor(model=>model.LastName)
                     @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
                 <div class="form-group">
                     <label class="col-form-label">Email</label>
                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email", @type = "email" } })
+                    @Html.ValidationMessageFor(model=>model.Email)
                     @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
                 <div class="form-group">
                     <label class="col-form-label">Contact</label>
                     @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Mobile Number", @type = "number" } })
+                    @Html.ValidationMessageFor(model=>model.MobileNumber)
                     @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
 
                 <div class="form-group">
                     <label class="col-form-label">Password</label>
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", @type = "password" } })
+                    @Html.ValidationMessageFor(model=>model.Password)
                     @*<input type="password" class="form-control" placeholder=" " name="Password" required="">*@
                 </div>
                 <div class="form-group">
                     <label class="col-form-label">Address</label>
                     @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
+                    @Html.ValidationMessageFor(model=>model.Address)
                     @*<input type="text" class="form-control" placeholder=" " name="Name" required="">*@
                 </div>
                 <div class="right-w3l">
