@@ -11,37 +11,16 @@ namespace Ecommerce.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         public int UserID { get; set; }
-
-        [Required(ErrorMessage = "Please Enter FirstName")]
-        [StringLength(30, MinimumLength = 3)]
         public string FirstName { get; set; }
-
-
-        [Required(ErrorMessage = "Please Enter LastName")]
-        [StringLength(30, MinimumLength = 3)]
         public string LastName { get; set; }
-
         public string Address { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Mobile No")]
-        [Display(Name = "Mobile")]
-        [StringLength(10, ErrorMessage = "The Mobile must contains 10 characters", MinimumLength = 10)]
         public string MobileNumber { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Email Address")]
-        [Display(Name = "Email")]
-        [RegularExpression(".+@.+\\..+", ErrorMessage = "Please Enter Correct Email Address")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Please Enter Password")]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Password { get; set; }
+        public string Gender { get; set; }
     }
 }

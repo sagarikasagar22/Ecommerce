@@ -18,6 +18,11 @@ namespace Ecommerce.Models
         public Item()
         {
             this.Orders = new HashSet<Order>();
+            this.Orders1 = new HashSet<Order>();
+            this.Orders2 = new HashSet<Order>();
+            this.Orders3 = new HashSet<Order>();
+            this.Orders4 = new HashSet<Order>();
+            this.Orders5 = new HashSet<Order>();
         }
     
         public int ItemID { get; set; }
@@ -30,7 +35,22 @@ namespace Ecommerce.Models
         public int ItemQty { get; set; }
     
         public virtual Category Category { get; set; }
+        public virtual Category Category1 { get; set; }
+        public virtual Category Category2 { get; set; }
+        public virtual Category Category3 { get; set; }
+        public virtual Category Category4 { get; set; }
+        public virtual Category Category5 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders4 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders5 { get; set; }
     }
 }

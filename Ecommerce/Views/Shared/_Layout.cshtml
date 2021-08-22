@@ -58,6 +58,18 @@
     <!-- jquery -->
     <script src="~Scripts/js/jquery-2.2.3.min.js"></script>
     <!-- //jquery -->
+    <script type="text/javascript">
+        $("#searchBtn").click(function () {
+            var valdata = $("#searchForm").serialize();
+            $.ajax({
+                type: "GET",
+                url: "/Electronics/Index",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: valdata,
+            });
+        });
+    </script>
     <!-- nav smooth scroll -->
     <script>
         $(document).ready(function () {

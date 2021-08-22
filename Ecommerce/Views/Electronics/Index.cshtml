@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Ecommerce.Models.Item>
+﻿@model  IEnumerable<Ecommerce.Models.Custom.CustomItem>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,7 +14,7 @@
         <div class="container">
             <ul class="w3_short">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="@Url.Action("Index","Home",new { area = "" })">Home</a>
                     <i>|</i>
                 </li>
                 <li>Electronics</li>
@@ -41,11 +41,29 @@
                     <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
                         <div class="row">
                             @foreach (var item in Model)
-                            {
+                    {
                                 <div class="col-md-4 product-men">
                                     <div class="men-pro-item simpleCart_shelfItem">
                                         <div class="men-thumb-item text-center">
-                                            <img src="@item.ImagePath" alt="">
+                                            @*@{ byte[] photo = item.ImagePath;
+                                                string imageSrc = null;
+                                                if (photo != null)
+                                                {
+                                                    //byte[] byteData = System.IO.File.ReadAllBytes(item.ImagePath);
+                                                    //Convert byte arry to base64string   
+                                                    string imreBase64Data = Convert.ToBase64String(photo);
+                                                    string imgDataURL = string.Format("data:image/png;base64,{0}", imreBase64Data);
+                                                    //Passing image data in viewbag to view  
+                                                    imageSrc = imgDataURL;
+                                                    //ViewBag.ImageData = imgDataURL;
+                                                    //MemoryStream ms = new MemoryStream();
+                                                    ////ms.Write(photo, 78, photo.Length - 78);
+                                                    //string imageBase64 = Convert.ToBase64String(ms.ToArray());
+                                                    //imageSrc = string.Format("data:image/jpg;base64,{0}", imageBase64);
+                                                }
+                                            }*@
+
+                                            <img src="@item.ImgSrc" alt="Image" />
                                             <div class="men-cart-pro">
                                                 <div class="inner-men-cart-pro">
                                                     <a href="@Url.Action("Product","Electronics",new { area = "", id = item.ItemID })" class="link-product-add-cart">Quick View</a>

@@ -19,7 +19,15 @@ namespace Ecommerce.Models
         public int ItemID { get; set; }
         public int OrderedQty { get; set; }
         public System.DateTime OrderedDate { get; set; }
+        public string OrderStatus { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public string CustomerName { get; set; }
     
         public virtual Item Item { get; set; }
+        public virtual Item Item1 { get; set; }
+        public virtual Item Item2 { get; set; }
+        public virtual Item Item3 { get; set; }
+        public virtual Item Item4 { get; set; }
+        public virtual Item Item5 { get; set; }
     }
 }
