@@ -1,0 +1,266 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cartItems = Ecommerce.Helper.SessionHelper.Instance.CartProducts;
+}
+
+@model Ecommerce.Models.CartProducts
+<!-- banner-2 -->
+<div class="page-head_agile_info_w3l">
+
+</div>
+<!-- //banner-2 -->
+<!-- page -->
+<div class="services-breadcrumb">
+    <div class="agile_inner_breadcrumb">
+        <div class="container">
+            <ul class="w3_short">
+                <li>
+                    <a href="@Url.Action("Index","Home",new { area = "" })">Home</a>
+                    <i>|</i>
+                </li>
+                <li>Checkout</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- //page -->
+<!-- checkout page -->
+<div class="privacy py-sm-5 py-4">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span>C</span>heckout
+        </h3>
+        <!-- //tittle heading -->
+        <div class="checkout-right">
+            @if (cartItems != null && cartItems.Products.Count > 0)
+            {
+                <h4 class="mb-sm-4 mb-3">
+                    Your shopping cart contains:
+                    <span>@cartItems.Products.Count Products</span>
+                </h4>
+            }
+            else
+            {
+                <h4 class="mb-sm-4 mb-3">
+                    Your shopping cart contains:
+                    <span>0 Products</span>
+                </h4>
+            }
+
+            @if (cartItems != null)
+            {
+                <div class="table-responsive">
+                    <table class="timetable_sub">
+                        <thead>
+
+                            <tr>
+                                @*<th>SL No.</th>*@
+                                <th>Product</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in cartItems.Products)
+                            {
+
+                                <tr class="rem1">
+                                    @*<td class="invert">1</td>*@
+                                    <td class="invert-image">
+                                        <a href="@Url.Action("Product","Electronics", new { area = "", id = p.Product.ItemID })">
+                                            <img src="@p.Product.ImgSrc" alt=" " class="img-responsive">
+                                        </a>
+                                    </td>
+                                    <td class="invert">
+                                        <div class="quantity">
+                                            <div class="quantity-select btn-group" data-toggle="buttons">
+                                                @*<div class="entry value-minus">&nbsp;</div>*@
+                                                <button class="btn btn-sm entry value-minus btn-rounded waves-effect waves-light removeQty" data-id="@p.Product.ItemID" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                    —
+                                                </button>
+                                                <div class="entry value">
+                                                    @*<span>@p.Product.ItemQty</span>*@
+                                                    <input id="qtyUpdate" class="quantity" min="0" name="quantity" value="@p.Product.ItemQty" readonly="readonly" type="number" style="max-width:3rem;">
+                                                </div>
+                                                @*<div class="entry value-plus active">&nbsp;</div>*@
+                                                <button class="entry value-plus active btn btn-sm button btn-rounded waves-effect waves-light addQty" data-id="@p.Product.ItemID" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="invert">@p.Product.ItemName</td>
+                                    <td class="invert">₹ @p.Product.ItemPrice</td>
+                                    <td class="invert">
+                                        @*<div class="rem">
+                                            <div class="close1"> </div>
+                                        </div>*@
+                                        <a href="#!" type="button" class="card-link-secondary small text-uppercase mr-3 removeProduct" data-id="@p.Product.ItemID"><i class="fa fa-trash mr-1"></i> Remove </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        @*<div class="checkout-left">
+            <div class="address_form_agile mt-sm-5 mt-4">
+                <h4 class="mb-sm-4 mb-3">Add a new Details</h4>
+                <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row">
+                                <div class="controls form-group">
+                                    <input class="billing-address-name form-control" type="text" name="name" placeholder="Full Name" required="">
+                                </div>
+                                <div class="w3_agileits_card_number_grids">
+                                    <div class="w3_agileits_card_number_grid_left form-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control" placeholder="Mobile Number" name="number" required="">
+                                        </div>
+                                    </div>
+                                    <div class="w3_agileits_card_number_grid_right form-group">
+                                        <div class="controls">
+                                            <input type="text" class="form-control" placeholder="Landmark" name="landmark" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controls form-group">
+                                    <input type="text" class="form-control" placeholder="Town/City" name="city" required="">
+                                </div>
+                                <div class="controls form-group">
+                                    <select class="option-w3ls">
+                                        <option>Select Address type</option>
+                                        <option>Office</option>
+                                        <option>Home</option>
+                                        <option>Commercial</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="submit check_out btn">Delivery to this Address</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="checkout-right-basket">
+                    <a href="payment.html">
+                        Make a Payment
+                        <span class="far fa-hand-point-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>*@
+        <div class="checkout-right-basket">
+            <a href="@Url.Action("Payment","Checkout")">
+                Make a Payment
+                <span class="far fa-hand-point-right"></span>
+            </a>
+        </div>
+    </div>
+            </div>
+        <!-- //checkout page -->
+        <!-- middle section -->
+        <div class="join-w3l1 py-sm-5 py-4">
+            <div class="container py-xl-4 py-lg-2">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="join-agile text-left p-4">
+                            <div class="row">
+                                <div class="col-sm-7 offer-name">
+                                    <h6>Smooth, Rich & Loud Audio</h6>
+                                    <h4 class="mt-2 mb-3">Branded Headphones</h4>
+                                    <p>Sale up to 25% off all in store</p>
+                                </div>
+                                <div class="col-sm-5 offerimg-w3l">
+                                    <img src="images/off1.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-lg-0 mt-5">
+                        <div class="join-agile text-left p-4">
+                            <div class="row ">
+                                <div class="col-sm-7 offer-name">
+                                    <h6>A Bigger Phone</h6>
+                                    <h4 class="mt-2 mb-3">Smart Phones 5</h4>
+                                    <p>Free shipping order over $100</p>
+                                </div>
+                                <div class="col-sm-5 offerimg-w3l">
+                                    <img src="images/off2.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- middle section -->
+
+
+
+        @section Scripts{
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    $('.removeProduct').click(function () {
+                        var removeProduct = $(this).attr("data-id");
+                        GetRemoveProduct(removeProduct);
+                    });
+                });
+
+                //$(document).ready(function () {
+                //    $('.goToCheckout').click(function () {
+                //        //var applycoupan = $(this).attr("data-id");
+                //        window.location.href = "/Order/Index";
+                //    });
+                //});
+            </script>
+
+            <script type="text/javascript">
+
+        //Remove Product
+        function GetRemoveProduct(removeProductId) {
+            $.ajax({
+                type: "GET",
+                url: '/Checkout/RemoveProduct',
+                data: { id: removeProductId },
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data) {
+                        window.location.reload();
+                    }
+                    @*var cartItemsDiv = document.getElementById('cartItems');
+                    var cinner = "";
+                    for (var i = 1; i < data.Products.count(); i++) {
+                        cinner = cinner +
+                        @Html.RenderPartial("_cartItem", data.Products[i - 1]);
+                    }*@
+
+
+                    //if (data) {
+
+                    //}
+                    //else {
+
+                    //}
+                },
+                error: function (xhr) {
+                    //debugger;
+                    console.log(xhr.responseText);
+
+                }
+            });
+        };
+
+            </script>
+
+        }

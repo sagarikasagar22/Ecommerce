@@ -16,5 +16,28 @@ namespace Ecommerce.Models.Custom
         public string ImgSrc { get; set; }
         public decimal ItemPrice { get; set; }
         public int ItemQty { get; set; }
+        public string HideId
+        {
+            get
+            {
+                return "hide" + this.ItemID;
+            }
+        }
+        public string ShowId
+        {
+            get
+            {
+                return "show" + this.ItemID;
+            }
+        }
+
+        public string QtyUpdate
+        {
+            get
+            {
+                return "qtyUpdate" + this.ItemID;
+            }
+        }
+
     }
 }

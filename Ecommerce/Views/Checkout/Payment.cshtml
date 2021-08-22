@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var cartItems = Ecommerce.Helper.SessionHelper.Instance.CartProducts;
 }
 
 
@@ -38,7 +39,7 @@
             <div id="parentHorizontalTab">
                 <ul class="resp-tabs-list hor_1">
                     <li>Cash on delivery (COD)</li>
-                    
+
                 </ul>
                 <div class="resp-tabs-container hor_1">
 
@@ -56,12 +57,18 @@
                             </div>
                         </div>
                     </div>
+                    @if (cartItems != null && cartItems.Products.Count > 0)
+                    {
+                    <div class="pull-right">
+                        <a href="@Url.Action("Index","Order")" class="btn btn-warning goToCheckout">Proceed To Pay</a>
+                    </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
-            <!--Plug-in Initialisation-->
- </div>
+    <!--Plug-in Initialisation-->
+</div>
 <!-- //payment page -->
 <!-- middle section -->
 <div class="join-w3l1 py-sm-5 py-4">

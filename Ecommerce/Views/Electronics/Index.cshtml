@@ -78,22 +78,32 @@
                                                 <span class="item_price">@item.ItemPrice</span>
                                                 @*<del>$280.00</del>*@
                                             </div>
-                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                            @if (item.ItemQty > 0)
+                                            {
+                                            <div id="@item.HideId" style="display:block;">
+                                                @Html.Partial("_btnAddItem", item)
+                                            </div>
+                                            <div id="@item.ShowId" style="display:none;">
+                                                @Html.Partial("_btnAddRemoveQty", item)
+                                            </div>
+
+                                            }
+                                            else
+                                            {
+                                            <div id="@item.HideId" style="display:none;">
+                                                @Html.Partial("_btnAddItem", item)
+                                            </div>
+                                            <div id="@item.ShowId" style="display:block;">
+                                                @Html.Partial("_btnAddRemoveQty", item)
+                                            </div>
+                                            }
+                                            @*<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                                 <form action="#" method="post">
                                                     <fieldset>
-                                                        <input type="hidden" name="cmd" value="_cart" />
-                                                        <input type="hidden" name="add" value="1" />
-                                                        <input type="hidden" name="business" value=" " />
-                                                        <input type="hidden" name="item_name" value="Samsung Galaxy J7" />
-                                                        <input type="hidden" name="amount" value="200.00" />
-                                                        <input type="hidden" name="discount_amount" value="1.00" />
-                                                        <input type="hidden" name="currency_code" value="USD" />
-                                                        <input type="hidden" name="return" value=" " />
-                                                        <input type="hidden" name="cancel_return" value=" " />
                                                         <input type="submit" name="submit" value="Add to cart" class="button btn" />
                                                     </fieldset>
                                                 </form>
-                                            </div>
+                                            </div>*@
 
                                         </div>
                                     </div>

@@ -1,0 +1,17 @@
+﻿
+@model Ecommerce.Models.Custom.CustomItem
+<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+
+    <div class=" row align-items-center justify-content-center flex-center ml-auto mr-auto mx-auto float-none">
+        <span class="text-left mx-auto" id="productListBtn">
+            <a class="btn btn-primary addCart @Model.ItemID" style="color:white;"
+               @*href='@Url.Action("AddCart1", "Products", new { itemId = item.Id })'*@
+               data-toggle="tooltip" data-id="@Model.ItemID"
+               data-placement="top" title=""
+               data-original-title="Add to Cart">
+                Add to Cart &nbsp;
+                <i class="fa fa-plus-circle ml-auto" style="font-size:16px;"></i>
+            </a>
+        </span>
+    </div>
+</div>

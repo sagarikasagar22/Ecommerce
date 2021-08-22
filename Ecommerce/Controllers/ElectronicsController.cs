@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Ecommerce.Controllers
 {
-    public class ElectronicsController : Controller
+    public class ElectronicsController : EcommerceBaseController
     {
         private OnlineStoreDataEntities2 _context = new OnlineStoreDataEntities2();
         // GET: Electronics
@@ -43,6 +43,7 @@ namespace Ecommerce.Controllers
                     ItemList.Add(item);
                 }
                 //ViewBag.ImageData = imgDataURL;
+                Ecommerce.Helper.SessionHelper.Instance.Items = ItemList;
                 return View(ItemList);
             }
         }
@@ -86,14 +87,18 @@ namespace Ecommerce.Controllers
             return HttpNotFound();
         }
 
-        public ActionResult Checkout()
-        {
-            return View();
-        }
 
-        public ActionResult Payment()
+        public JsonResult AddCart1(Int64 itemId)
         {
-            return View();
+            var sessionItems = Ecommerce.Helper.SessionHelper.Instance.Items;
+            if(sessionItems != null)
+            {
+                AddProductInCart(itemId, 1);
+
+            }
+            var item = Ecommerce.Helper.SessionHelper.Instance.CartProducts.Products.Where(x => x.Product.ItemID == itemId).FirstOrDefault();
+            var cartItemCount = Ecommerce.Helper.SessionHelper.Instance.CartProducts.ItemCount;
+            return Json(new { CartItemCount = cartItemCount, ItemCount = item.Quantity, ItemId = itemId }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -129,14 +129,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\EcommerceBaseController.cs" />
     <Compile Include="Controllers\ElectronicsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\SessionHelper.cs" />
+    <Compile Include="Models\CartProduct.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>ElectroStoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Custom\CustomOrder.cs" />
     <Compile Include="Models\Custom\CustomItem.cs" />
     <Compile Include="Models\Custom\CustomLogIn.cs" />
     <Compile Include="Models\ElectroStoreModel.Context.cs">
@@ -303,69 +309,6 @@
     <Content Include="Scripts\js\scroll.js" />
     <Content Include="Scripts\js\SmoothScroll.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Electronics\images\a.jpg" />
-    <Content Include="Views\Electronics\images\a3.jpg" />
-    <Content Include="Views\Electronics\images\a4.jpg" />
-    <Content Include="Views\Electronics\images\ab.jpg" />
-    <Content Include="Views\Electronics\images\arrow.png" />
-    <Content Include="Views\Electronics\images\b1.jpg" />
-    <Content Include="Views\Electronics\images\b2.jpg" />
-    <Content Include="Views\Electronics\images\b3.jpg" />
-    <Content Include="Views\Electronics\images\b4.jpg" />
-    <Content Include="Views\Electronics\images\bg.jpg" />
-    <Content Include="Views\Electronics\images\bg2.jpg" />
-    <Content Include="Views\Electronics\images\close_1.png" />
-    <Content Include="Views\Electronics\images\h.jpg" />
-    <Content Include="Views\Electronics\images\image1.png" />
-    <Content Include="Views\Electronics\images\k1.jpg" />
-    <Content Include="Views\Electronics\images\k2.jpg" />
-    <Content Include="Views\Electronics\images\k3.jpg" />
-    <Content Include="Views\Electronics\images\logo2.png" />
-    <Content Include="Views\Electronics\images\m1.jpg" />
-    <Content Include="Views\Electronics\images\m2.jpg" />
-    <Content Include="Views\Electronics\images\m3.jpg" />
-    <Content Include="Views\Electronics\images\m4.jpg" />
-    <Content Include="Views\Electronics\images\m5.jpg" />
-    <Content Include="Views\Electronics\images\m6.jpg" />
-    <Content Include="Views\Electronics\images\m7.jpg" />
-    <Content Include="Views\Electronics\images\m8.jpg" />
-    <Content Include="Views\Electronics\images\m9.jpg" />
-    <Content Include="Views\Electronics\images\mk1.jpg" />
-    <Content Include="Views\Electronics\images\mk2.jpg" />
-    <Content Include="Views\Electronics\images\mk3.jpg" />
-    <Content Include="Views\Electronics\images\mk4.jpg" />
-    <Content Include="Views\Electronics\images\mk5.jpg" />
-    <Content Include="Views\Electronics\images\mk6.jpg" />
-    <Content Include="Views\Electronics\images\mk7.jpg" />
-    <Content Include="Views\Electronics\images\mk8.jpg" />
-    <Content Include="Views\Electronics\images\mk9.jpg" />
-    <Content Include="Views\Electronics\images\mm1.jpg" />
-    <Content Include="Views\Electronics\images\mm2.jpg" />
-    <Content Include="Views\Electronics\images\mm3.jpg" />
-    <Content Include="Views\Electronics\images\mm4.jpg" />
-    <Content Include="Views\Electronics\images\mm5.jpg" />
-    <Content Include="Views\Electronics\images\mm6.jpg" />
-    <Content Include="Views\Electronics\images\move-up.png" />
-    <Content Include="Views\Electronics\images\off1.png" />
-    <Content Include="Views\Electronics\images\off2.png" />
-    <Content Include="Views\Electronics\images\pay1.png" />
-    <Content Include="Views\Electronics\images\pay2.png" />
-    <Content Include="Views\Electronics\images\pay3.png" />
-    <Content Include="Views\Electronics\images\pay4.png" />
-    <Content Include="Views\Electronics\images\pay5.png" />
-    <Content Include="Views\Electronics\images\pay6.png" />
-    <Content Include="Views\Electronics\images\pay7.png" />
-    <Content Include="Views\Electronics\images\pay8.png" />
-    <Content Include="Views\Electronics\images\pay9.png" />
-    <Content Include="Views\Electronics\images\paypal.png" />
-    <Content Include="Views\Electronics\images\search.png" />
-    <Content Include="Views\Electronics\images\si1.jpg" />
-    <Content Include="Views\Electronics\images\si2.jpg" />
-    <Content Include="Views\Electronics\images\si3.jpg" />
-    <Content Include="Views\Electronics\images\sii1.jpg" />
-    <Content Include="Views\Electronics\images\sii2.jpg" />
-    <Content Include="Views\Electronics\images\sii3.jpg" />
-    <Content Include="Views\Electronics\images\user.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -388,11 +331,17 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Electronics\Index.cshtml" />
     <Content Include="Views\Electronics\Product.cshtml" />
-    <Content Include="Views\Electronics\Checkout.cshtml" />
-    <Content Include="Views\Electronics\Payment.cshtml" />
+    <Content Include="Views\Shared\_btnAddItem.cshtml" />
+    <Content Include="Views\Shared\_btnAddRemoveQty.cshtml" />
+    <Content Include="Views\Shared\_btnUpdateCart.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\Payment.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\EcommerceBase\" />
+    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -45,31 +45,17 @@
 <body>
     @Html.Partial("_Header")
     @Html.Partial("_Navbar")
-    
-        @RenderBody()
-        
+
+    @RenderBody()
+
     @Html.Partial("_Footer")
 
     @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@
-    @RenderSection("scripts", required: false)
-
-    <!-- js-files -->
+        @Scripts.Render("~/bundles/bootstrap")*@
     <!-- jquery -->
-    <script src="~Scripts/js/jquery-2.2.3.min.js"></script>
+    @*<script src="~Scripts/js/jquery-2.2.3.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     <!-- //jquery -->
-    <script type="text/javascript">
-        $("#searchBtn").click(function () {
-            var valdata = $("#searchForm").serialize();
-            $.ajax({
-                type: "GET",
-                url: "/Electronics/Index",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: valdata,
-            });
-        });
-    </script>
     <!-- nav smooth scroll -->
     <script>
         $(document).ready(function () {
@@ -189,6 +175,153 @@
     <script src="~Scripts/js/bootstrap.js"></script>
     <!-- //for bootstrap working -->
     <!-- //js-files -->
+    <script type="text/javascript" language="Javascript">
+        $(document).ready(function () {
 
+        });
+    </script>
+    <script type="text/javascript" language="Javascript">
+
+        function ToggleDiv(addToCart) {
+
+            var clicked = false;
+            var hideDiv = document.getElementById('hide' + addToCart);
+
+            var displayHideDiv = hideDiv.style.display;
+
+            var showDiv = document.getElementById('show' + addToCart);
+
+            if (addToCart !== null && addToCart != "") {
+                if (displayHideDiv == "block") {
+
+                    hideDiv.style.display = "none";
+
+                    showDiv.style.display = "block";
+                    //var qtyUpdate = $('#qtyUpdate').val();
+                    //document.getElementById('qtyUpdate').innerHTML = qtyUpdate +1;
+
+                }
+            }
+        }
+
+    </script>
+    <script type="text/javascript" language="Javascript">
+
+        $(document).ready(function () {
+
+        });
+        $(document).ready(function () {
+            $('.addCart').click(function () {
+                var addToCart = $(this).attr("data-id");
+                GetAddToCart(addToCart);
+                ToggleDiv(addToCart);
+                //$.get('/Products/AddCart1', { itemId: addToCart }, function (data) {
+                //    alert('1');
+                //});
+            });
+
+            $('.addQty').click(function () {
+                var addQty = $(this).attr("data-id");
+                GetAddQuantity(addQty);
+            });
+            $('.removeQty').click(function () {
+                var removeQty = $(this).attr("data-id");
+                GetRemoveQuantity(removeQty);
+            });
+        });
+
+        //var itemId = $("#itemId").val();
+        function GetAddToCart(addToCartId) {
+            $.ajax({
+                type: "POST",
+                url: '/Electronics/AddCart1',
+                data: { itemId: addToCartId },
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data) {
+                        //alert("success");
+                        var spanId = document.getElementById('bedgeSpan');
+                        spanId.innerHTML = data.CartItemCount;
+
+                        var spanQuantity = document.getElementById('qtyUpdate' + data.ItemId);
+                        //spanQuantity.innerHTML = data.ItemCount;
+                        //spanQuantity.val(data.ItemCount);
+                        spanQuantity.value = data.ItemCount;
+                    }
+                    //else {
+                    //    alert("Fail");
+                    //}
+                },
+                error: function (xhr) {
+                    //debugger;
+                    console.log(xhr.responseText);
+
+                }
+            });
+        };
+
+        //Add Quantity
+        function GetAddQuantity(addQtyId) {
+            $.ajax({
+                type: "POST",
+                url: '/Checkout/AddQuantity',
+                data: { id: addQtyId },
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data) {
+                        var spanId = document.getElementById('bedgeSpan');
+                        spanId.innerHTML = data.CartItemCount;
+
+                        var inputId = document.getElementById('qtyUpdate' + data.ItemId);
+                        inputId.value = data.ItemCount;
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        };
+
+        //RemoveQuantity
+
+        function GetRemoveQuantity(removeQtyId) {
+            $.ajax({
+                type: "POST",
+                url: '/Checkout/RemoveQuantity',
+                data: { id: removeQtyId },
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    if (data) {
+                        var spanId = document.getElementById('bedgeSpan');
+                        spanId.innerHTML = data.CartItemCount;
+
+                        var inputId = document.getElementById('qtyUpdate' + removeQtyId);
+                        inputId.value = data.ItemCount;
+
+                        if (data.ItemCount == 0) {
+                            var hideDiv = document.getElementById('hide' + removeQtyId);
+                            var showDiv = document.getElementById('show' + removeQtyId);
+
+                            hideDiv.style.display = "block";
+                            showDiv.style.display = "none";
+
+                        }
+                    }
+                },
+                error: function (xhr) {
+                    //debugger;
+                    console.log(xhr.responseText);
+                }
+            });
+        };
+
+    </script>
+
+    <!-- js-files -->
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

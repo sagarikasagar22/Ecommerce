@@ -1,0 +1,51 @@
+﻿@model Ecommerce.Models.Custom.CustomOrder
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = Ecommerce.Helper.SessionHelper.Instance.user;
+
+}
+
+<div class="container" style="width:700px; max-width:100%; margin-top:3%;margin-bottom:3%;">
+    <div class="card p-3">
+        <section style="border:0.2px solid #e0e0e0;" class="align-content-center p-3">
+
+            <h2 class="text-center">Order Placed</h2>
+            <br />
+            <div class="container align-items-center">
+                @if (!string.IsNullOrEmpty(Model.OrderNumber))
+                {
+                    if (Model.OrderNumber == "0")
+                    {
+                        <div>
+                            We are facing some issue. Don't worry, your money is safe. We will revert you shortly on email / mobile for your payment.
+                            <br />
+                            Order Number : NA
+                            <br />
+                            <br />
+                            Please check your order status in Order History.
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            Your order has been placed successfully.
+                            <br />
+                            Order Number : @Model.OrderNumber
+                            <br />
+                            <br />
+                            Please check your order status in Order History.
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div>
+                        Your order request has been failed. Please try it again.
+                    </div>
+                }
+            </div>
+
+        </section>
+    </div>
+</div>

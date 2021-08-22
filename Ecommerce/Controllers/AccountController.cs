@@ -1,4 +1,5 @@
-﻿using Ecommerce.Models;
+﻿using Ecommerce.Helper;
+using Ecommerce.Models;
 using Ecommerce.Models.Custom;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,7 @@ namespace Ecommerce.Controllers
                 var res = _context.Users.Where(x => (x.Email == customLogIn.UserName || x.MobileNumber == customLogIn.UserName) && (x.Password == customLogIn.Password)).FirstOrDefault();
                 if (res != null)
                 {
+                    SessionHelper.Instance.user = res;
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 else
@@ -77,6 +79,12 @@ namespace Ecommerce.Controllers
         public ActionResult Login()
         {
             return View(new CustomLogIn());
+        }
+
+        public ActionResult Logout()
+        {
+            SessionHelper.Instance.user = null;
+            return RedirectToAction("Login", "Account");
         }
 
 

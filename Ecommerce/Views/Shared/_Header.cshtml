@@ -1,4 +1,18 @@
-﻿<!-- header-bottom-->
+﻿@{ 
+    int cartItemsCount = 0;
+    if(Ecommerce.Helper.SessionHelper.Instance.CartProducts!=null && Ecommerce.Helper.SessionHelper.Instance.CartProducts.Products.Count() >0)
+    {
+        cartItemsCount = Ecommerce.Helper.SessionHelper.Instance.CartProducts.ItemCount;
+    }
+    var sessionProduct = Session["Products"];
+    var sessionProducts = new List<Ecommerce.Models.Item>();
+
+    bool isUserLoggedIn = Ecommerce.Helper.SessionHelper.Instance.user != null;
+}
+
+
+
+<!-- header-bottom-->
 <div class="header-bot">
     <div class="container">
         <div class="row header-bot_inner_wthreeinfo_header_mid">
@@ -16,7 +30,7 @@
                 <div class="row">
                     <!-- search -->
                     <div class="col-8 agileits_search">
-                        <form class="form-inline" action="#" method="post" id="searchForm">
+                        <form class="form-inline" action="@Url.Action("Index","Electronics", new { area = "" })" method="post" id="searchForm">
                             <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search" required>
                             <button class="btn my-2 my-sm-0" type="submit" id="searchBtn">Search</button>
                         </form>
@@ -25,20 +39,32 @@
                     <!-- cart details -->
                     <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
                         <div class="wthreecartaits wthreecartaits2 cart cart box_1">
-                            <form action="#" method="post" class="last">
-                                <input type="hidden" name="cmd" value="_cart">
-                                <input type="hidden" name="display" value="1">
-                                <button class="btn w3view-cart" type="submit" name="submit" value="">
-                                    <i class="fas fa-cart-arrow-down"></i>
-                                </button>
-                            </form>
+                            <span id="bedgespan" class="badge badge-pill" style="background-color:red;color:white;margin-right:-70px;">@cartItemsCount</span>
+                            <a class="btn btn-lg w3view-cart" href="@Url.Action("Index","Checkout", new { area = "" })" style="text-decoration:none;">
+                                <i class="fas fa-cart-arrow-down"></i>
+                            </a>
+                            @*<form action="#" method="post" class="last">
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="display" value="1">
+                    <button class="btn w3view-cart" type="submit" name="submit" value="">
+                        <i class="fas fa-cart-arrow-down"></i>
+                    </button>
+                </form>*@
                         </div>
                     </div>
                     <!-- //cart details -->
-
+                    @if (isUserLoggedIn)
+                    {
+                        <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+                            <a class="btn btn-md btn-info" href="@Url.Action("Logout", "Account", new { area = "" })">Logout</a>
+                        </div>
+                    }
+                    else
+                    {
                     <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
-                        <a class="btn btn-md btn-info" href="@Url.Action("Login","Account",new { area = "" })" >Login</a>
+                        <a class="btn btn-md btn-info" href="@Url.Action("Login", "Account", new { area = "" })">Login</a>
                     </div>
+                    }
                 </div>
             </div>
         </div>
