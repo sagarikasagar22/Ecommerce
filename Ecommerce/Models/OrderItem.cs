@@ -12,14 +12,14 @@ namespace Ecommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class OrderItem
     {
-        public int UserID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public string MobileNumber { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public int ID { get; set; }
+        public int ItemID { get; set; }
+        public int OrderID { get; set; }
+        public System.DateTime OrderDate { get; set; }
+    
+        public virtual Item Item { get; set; }
+        public virtual Order Order { get; set; }
     }
 }

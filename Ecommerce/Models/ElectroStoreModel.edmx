@@ -10,7 +10,6 @@
             <PropertyRef Name="CategoryID" />
           </Key>
           <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryCode" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="CategoryName" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="Items">
@@ -19,25 +18,31 @@
           </Key>
           <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
-          <Property Name="ItemCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ItemName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="ItemDescription" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="ImagePath" Type="varchar(max)" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="50" />
           <Property Name="ItemPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ItemQty" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItems">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderNumber" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="ItemID" Type="int" Nullable="false" />
-          <Property Name="OrderedQty" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrderedQty" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="OrderedDate" Type="datetime" Nullable="false" />
-          <Property Name="OrderStatus" Type="varchar" MaxLength="150" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserID" Type="int" />
-          <Property Name="CustomerName" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -50,9 +55,8 @@
           <Property Name="MobileNumber" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Gender" Type="char" MaxLength="1" />
         </EntityType>
-        <Association Name="FK__Items__CategoryI__29572725">
+        <Association Name="FK__Items__CategoryI__49C3F6B7">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -64,7 +68,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__34C8D9D1">
+        <Association Name="FK__Items__CategoryI__4AB81AF0">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -76,7 +80,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__36B12243">
+        <Association Name="FK__Items__CategoryI__4BAC3F29">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -88,7 +92,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__38996AB5">
+        <Association Name="FK__Items__CategoryI__4CA06362">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -100,7 +104,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__3A81B327">
+        <Association Name="FK__Items__CategoryI__4D94879B">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -112,7 +116,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__3C69FB99">
+        <Association Name="FK__Items__CategoryI__4E88ABD4">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
           <ReferentialConstraint>
@@ -124,130 +128,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ItemID__2A4B4B5E">
+        <Association Name="FK__OrderItem__ItemI__59063A47">
           <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
               <PropertyRef Name="ItemID" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="OrderItems">
               <PropertyRef Name="ItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ItemID__35BCFE0A">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+        <Association Name="FK__OrderItem__Order__59FA5E80">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
             </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__37A5467C">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__398D8EEE">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__3B75D760">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__3D5E1FD2">
-          <End Role="Items" Type="Self.Items" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OnlineStoreDataModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Items__CategoryI__29572725" Association="Self.FK__Items__CategoryI__29572725">
+          <AssociationSet Name="FK__Items__CategoryI__49C3F6B7" Association="Self.FK__Items__CategoryI__49C3F6B7">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__34C8D9D1" Association="Self.FK__Items__CategoryI__34C8D9D1">
+          <AssociationSet Name="FK__Items__CategoryI__4AB81AF0" Association="Self.FK__Items__CategoryI__4AB81AF0">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__36B12243" Association="Self.FK__Items__CategoryI__36B12243">
+          <AssociationSet Name="FK__Items__CategoryI__4BAC3F29" Association="Self.FK__Items__CategoryI__4BAC3F29">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__38996AB5" Association="Self.FK__Items__CategoryI__38996AB5">
+          <AssociationSet Name="FK__Items__CategoryI__4CA06362" Association="Self.FK__Items__CategoryI__4CA06362">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__3A81B327" Association="Self.FK__Items__CategoryI__3A81B327">
+          <AssociationSet Name="FK__Items__CategoryI__4D94879B" Association="Self.FK__Items__CategoryI__4D94879B">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__3C69FB99" Association="Self.FK__Items__CategoryI__3C69FB99">
+          <AssociationSet Name="FK__Items__CategoryI__4E88ABD4" Association="Self.FK__Items__CategoryI__4E88ABD4">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__2A4B4B5E" Association="Self.FK__Orders__ItemID__2A4B4B5E">
+          <AssociationSet Name="FK__OrderItem__ItemI__59063A47" Association="Self.FK__OrderItem__ItemI__59063A47">
             <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__35BCFE0A" Association="Self.FK__Orders__ItemID__35BCFE0A">
-            <End Role="Items" EntitySet="Items" />
+          <AssociationSet Name="FK__OrderItem__Order__59FA5E80" Association="Self.FK__OrderItem__Order__59FA5E80">
             <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__37A5467C" Association="Self.FK__Orders__ItemID__37A5467C">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__398D8EEE" Association="Self.FK__Orders__ItemID__398D8EEE">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__3B75D760" Association="Self.FK__Orders__ItemID__3B75D760">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__3D5E1FD2" Association="Self.FK__Orders__ItemID__3D5E1FD2">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -260,14 +201,13 @@
             <PropertyRef Name="CategoryID" />
           </Key>
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryCode" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CategoryName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Items" Relationship="Self.FK__Items__CategoryI__29572725" FromRole="Categories" ToRole="Items" />
-          <NavigationProperty Name="Items1" Relationship="Self.FK__Items__CategoryI__34C8D9D1" FromRole="Categories" ToRole="Items" />
-          <NavigationProperty Name="Items2" Relationship="Self.FK__Items__CategoryI__36B12243" FromRole="Categories" ToRole="Items" />
-          <NavigationProperty Name="Items3" Relationship="Self.FK__Items__CategoryI__38996AB5" FromRole="Categories" ToRole="Items" />
-          <NavigationProperty Name="Items4" Relationship="Self.FK__Items__CategoryI__3A81B327" FromRole="Categories" ToRole="Items" />
-          <NavigationProperty Name="Items5" Relationship="Self.FK__Items__CategoryI__3C69FB99" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items" Relationship="Self.FK__Items__CategoryI__49C3F6B7" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items1" Relationship="Self.FK__Items__CategoryI__4AB81AF0" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items2" Relationship="Self.FK__Items__CategoryI__4BAC3F29" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items3" Relationship="Self.FK__Items__CategoryI__4CA06362" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items4" Relationship="Self.FK__Items__CategoryI__4D94879B" FromRole="Categories" ToRole="Items" />
+          <NavigationProperty Name="Items5" Relationship="Self.FK__Items__CategoryI__4E88ABD4" FromRole="Categories" ToRole="Items" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -275,43 +215,41 @@
           </Key>
           <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ItemDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ItemPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ItemQty" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Items__CategoryI__29572725" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="Category1" Relationship="Self.FK__Items__CategoryI__34C8D9D1" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="Category2" Relationship="Self.FK__Items__CategoryI__36B12243" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="Category3" Relationship="Self.FK__Items__CategoryI__38996AB5" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="Category4" Relationship="Self.FK__Items__CategoryI__3A81B327" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="Category5" Relationship="Self.FK__Items__CategoryI__3C69FB99" FromRole="Items" ToRole="Categories" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ItemID__2A4B4B5E" FromRole="Items" ToRole="Orders" />
-          <NavigationProperty Name="Orders1" Relationship="Self.FK__Orders__ItemID__35BCFE0A" FromRole="Items" ToRole="Orders" />
-          <NavigationProperty Name="Orders2" Relationship="Self.FK__Orders__ItemID__37A5467C" FromRole="Items" ToRole="Orders" />
-          <NavigationProperty Name="Orders3" Relationship="Self.FK__Orders__ItemID__398D8EEE" FromRole="Items" ToRole="Orders" />
-          <NavigationProperty Name="Orders4" Relationship="Self.FK__Orders__ItemID__3B75D760" FromRole="Items" ToRole="Orders" />
-          <NavigationProperty Name="Orders5" Relationship="Self.FK__Orders__ItemID__3D5E1FD2" FromRole="Items" ToRole="Orders" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Items__CategoryI__49C3F6B7" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK__Items__CategoryI__4AB81AF0" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="Category2" Relationship="Self.FK__Items__CategoryI__4BAC3F29" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="Category3" Relationship="Self.FK__Items__CategoryI__4CA06362" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="Category4" Relationship="Self.FK__Items__CategoryI__4D94879B" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="Category5" Relationship="Self.FK__Items__CategoryI__4E88ABD4" FromRole="Items" ToRole="Categories" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__ItemI__59063A47" FromRole="Items" ToRole="OrderItems" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Item" Relationship="Self.FK__OrderItem__ItemI__59063A47" FromRole="OrderItems" ToRole="Items" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderItem__Order__59FA5E80" FromRole="OrderItems" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ItemID" Type="Int32" Nullable="false" />
-          <Property Name="OrderedQty" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="OrderedQty" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="OrderedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="OrderStatus" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
-          <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Item" Relationship="Self.FK__Orders__ItemID__2A4B4B5E" FromRole="Orders" ToRole="Items" />
-          <NavigationProperty Name="Item1" Relationship="Self.FK__Orders__ItemID__35BCFE0A" FromRole="Orders" ToRole="Items" />
-          <NavigationProperty Name="Item2" Relationship="Self.FK__Orders__ItemID__37A5467C" FromRole="Orders" ToRole="Items" />
-          <NavigationProperty Name="Item3" Relationship="Self.FK__Orders__ItemID__398D8EEE" FromRole="Orders" ToRole="Items" />
-          <NavigationProperty Name="Item4" Relationship="Self.FK__Orders__ItemID__3B75D760" FromRole="Orders" ToRole="Items" />
-          <NavigationProperty Name="Item5" Relationship="Self.FK__Orders__ItemID__3D5E1FD2" FromRole="Orders" ToRole="Items" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__59FA5E80" FromRole="Orders" ToRole="OrderItems" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -324,9 +262,8 @@
           <Property Name="MobileNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
-        <Association Name="FK__Items__CategoryI__29572725">
+        <Association Name="FK__Items__CategoryI__49C3F6B7">
           <End Role="Categories" Type="Self.Category" Multiplicity="1" />
           <End Role="Items" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -338,7 +275,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__34C8D9D1">
+        <Association Name="FK__Items__CategoryI__4AB81AF0">
           <End Role="Categories" Type="Self.Category" Multiplicity="1" />
           <End Role="Items" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -350,7 +287,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__36B12243">
+        <Association Name="FK__Items__CategoryI__4BAC3F29">
           <End Role="Categories" Type="Self.Category" Multiplicity="1" />
           <End Role="Items" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -362,7 +299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__38996AB5">
+        <Association Name="FK__Items__CategoryI__4CA06362">
           <End Role="Categories" Type="Self.Category" Multiplicity="1" />
           <End Role="Items" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -374,7 +311,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__3A81B327">
+        <Association Name="FK__Items__CategoryI__4D94879B">
           <End Role="Categories" Type="Self.Category" Multiplicity="1" />
           <End Role="Items" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -386,7 +323,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Items__CategoryI__3C69FB99">
+        <Association Name="FK__Items__CategoryI__4E88ABD4">
           <End Role="Categories" Type="Self.Category" Multiplicity="1" />
           <End Role="Items" Type="Self.Item" Multiplicity="*" />
           <ReferentialConstraint>
@@ -398,130 +335,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ItemID__2A4B4B5E">
+        <Association Name="FK__OrderItem__ItemI__59063A47">
           <End Role="Items" Type="Self.Item" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Items">
               <PropertyRef Name="ItemID" />
             </Principal>
-            <Dependent Role="Orders">
+            <Dependent Role="OrderItems">
               <PropertyRef Name="ItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ItemID__35BCFE0A">
-          <End Role="Items" Type="Self.Item" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+        <Association Name="FK__OrderItem__Order__59FA5E80">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
             </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
+            <Dependent Role="OrderItems">
+              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__ItemID__37A5467C">
-          <End Role="Items" Type="Self.Item" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__398D8EEE">
-          <End Role="Items" Type="Self.Item" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__3B75D760">
-          <End Role="Items" Type="Self.Item" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__ItemID__3D5E1FD2">
-          <End Role="Items" Type="Self.Item" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Items">
-              <PropertyRef Name="ItemID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ItemID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="OnlineStoreDataEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OnlineStoreDataEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Items__CategoryI__29572725" Association="Self.FK__Items__CategoryI__29572725">
+          <AssociationSet Name="FK__Items__CategoryI__49C3F6B7" Association="Self.FK__Items__CategoryI__49C3F6B7">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__34C8D9D1" Association="Self.FK__Items__CategoryI__34C8D9D1">
+          <AssociationSet Name="FK__Items__CategoryI__4AB81AF0" Association="Self.FK__Items__CategoryI__4AB81AF0">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__36B12243" Association="Self.FK__Items__CategoryI__36B12243">
+          <AssociationSet Name="FK__Items__CategoryI__4BAC3F29" Association="Self.FK__Items__CategoryI__4BAC3F29">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__38996AB5" Association="Self.FK__Items__CategoryI__38996AB5">
+          <AssociationSet Name="FK__Items__CategoryI__4CA06362" Association="Self.FK__Items__CategoryI__4CA06362">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__3A81B327" Association="Self.FK__Items__CategoryI__3A81B327">
+          <AssociationSet Name="FK__Items__CategoryI__4D94879B" Association="Self.FK__Items__CategoryI__4D94879B">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Items__CategoryI__3C69FB99" Association="Self.FK__Items__CategoryI__3C69FB99">
+          <AssociationSet Name="FK__Items__CategoryI__4E88ABD4" Association="Self.FK__Items__CategoryI__4E88ABD4">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__2A4B4B5E" Association="Self.FK__Orders__ItemID__2A4B4B5E">
+          <AssociationSet Name="FK__OrderItem__ItemI__59063A47" Association="Self.FK__OrderItem__ItemI__59063A47">
             <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__35BCFE0A" Association="Self.FK__Orders__ItemID__35BCFE0A">
-            <End Role="Items" EntitySet="Items" />
+          <AssociationSet Name="FK__OrderItem__Order__59FA5E80" Association="Self.FK__OrderItem__Order__59FA5E80">
             <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__37A5467C" Association="Self.FK__Orders__ItemID__37A5467C">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__398D8EEE" Association="Self.FK__Orders__ItemID__398D8EEE">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__3B75D760" Association="Self.FK__Orders__ItemID__3B75D760">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__ItemID__3D5E1FD2" Association="Self.FK__Orders__ItemID__3D5E1FD2">
-            <End Role="Items" EntitySet="Items" />
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -529,12 +403,11 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OnlineStoreDataModelStoreContainer" CdmEntityContainer="OnlineStoreDataEntities2">
+        <EntityContainerMapping StorageEntityContainer="OnlineStoreDataModelStoreContainer" CdmEntityContainer="OnlineStoreDataEntities3">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="OnlineStoreDataModel.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -544,7 +417,6 @@
               <MappingFragment StoreEntitySet="Items">
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
@@ -553,17 +425,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="OnlineStoreDataModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItems">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="OnlineStoreDataModel.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="OrderedQty" ColumnName="OrderedQty" />
                 <ScalarProperty Name="OrderedDate" ColumnName="OrderedDate" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -577,7 +457,6 @@
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

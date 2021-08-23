@@ -11,7 +11,7 @@ namespace Ecommerce.Controllers
 {
     public class OrderController : EcommerceBaseController
     {
-        private OnlineStoreDataEntities2 _context = new OnlineStoreDataEntities2();
+        private OnlineStoreDataEntities3 _context = new OnlineStoreDataEntities3();
         // GET: Order
         public ActionResult Index()
         {
@@ -75,9 +75,7 @@ namespace Ecommerce.Controllers
             {
                 UserID = custom.UserID,
                 OrderID = custom.OrderID,
-                CustomerName = custom.CustomerName,
                 OrderedDate = custom.OrderedDate,
-                OrderedQty = custom.OrderedQty,
                 OrderNumber = custom.OrderNumber,
                 OrderStatus = custom.OrderStatus,
 

@@ -14,20 +14,20 @@ namespace Ecommerce.Models
     
     public partial class Order
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.OrderItems = new HashSet<OrderItem>();
+        }
+    
         public int OrderID { get; set; }
         public string OrderNumber { get; set; }
-        public int ItemID { get; set; }
-        public int OrderedQty { get; set; }
+        public string OrderedQty { get; set; }
         public System.DateTime OrderedDate { get; set; }
         public string OrderStatus { get; set; }
         public Nullable<int> UserID { get; set; }
-        public string CustomerName { get; set; }
     
-        public virtual Item Item { get; set; }
-        public virtual Item Item1 { get; set; }
-        public virtual Item Item2 { get; set; }
-        public virtual Item Item3 { get; set; }
-        public virtual Item Item4 { get; set; }
-        public virtual Item Item5 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

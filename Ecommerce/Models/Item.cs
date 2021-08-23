@@ -17,17 +17,11 @@ namespace Ecommerce.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Item()
         {
-            this.Orders = new HashSet<Order>();
-            this.Orders1 = new HashSet<Order>();
-            this.Orders2 = new HashSet<Order>();
-            this.Orders3 = new HashSet<Order>();
-            this.Orders4 = new HashSet<Order>();
-            this.Orders5 = new HashSet<Order>();
+            this.OrderItems = new HashSet<OrderItem>();
         }
     
         public int ItemID { get; set; }
         public int CategoryID { get; set; }
-        public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public string ImagePath { get; set; }
@@ -41,16 +35,6 @@ namespace Ecommerce.Models
         public virtual Category Category4 { get; set; }
         public virtual Category Category5 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders4 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders5 { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Ecommerce.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OnlineStoreDataEntities2 : DbContext
+    public partial class OnlineStoreDataEntities3 : DbContext
     {
-        public OnlineStoreDataEntities2()
-            : base("name=OnlineStoreDataEntities2")
+        public OnlineStoreDataEntities3()
+            : base("name=OnlineStoreDataEntities3")
         {
         }
     
@@ -27,6 +27,7 @@ namespace Ecommerce.Models
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }

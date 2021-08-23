@@ -1,0 +1,76 @@
+﻿@*@model IEnumerable<ARStore.Models.ServiceModel.OrderModel>*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sessionOrder = Ecommerce.Helper.SessionHelper.Instance.OrderHistory;
+
+    var sessionOrders = new List<Ecommerce.Models.Order>();
+    if (sessionOrder != null)
+    {
+        sessionOrders = sessionOrder as List<Ecommerce.Models.Order>;
+    }
+}
+<div class="col-lg-12 col-12">
+    @if (sessionOrders != null)
+    {<div class="container" style=" margin-bottom:3%;width:800px; max-width:100%;">
+
+            @foreach (var item in sessionOrders)
+            {
+                <section>
+                    <div class="card p-2">
+                        <form id="orderForm">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-12">
+                                    <h7 class="mt-3"><b>Order No.</b></h7>
+                                    <p> @item.OrderNumber</p>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-12">
+                                    <h7 class="mt-3"><b>Order Date</b></h7>
+                                    <p>@item.OrderedDate</p>
+
+                                </div>
+
+                                <div class="col-md-2 col-sm-2 col-12">
+                                    <h7 class="mt-3"><b>Order Status</b></h7>
+                                    <p>@item.OrderStatus</p>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-12">
+                                    <h7 class="mt-3"><b>Payment Method</b></h7>
+                                    
+                                    <span class="grey-text">COD</span>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-12">
+                                    <h7 class="text-center">
+                                        <a class="btn btn-outline-indigo btn-sm" href='@Url.Action("Items", "OrdersHistory", new { orderid = item.OrderID})'>View Details</a>
+                                    </h7>
+                                    <input type="button" class="btn btn-outline-dark-green btn-sm" value="Order Details" onclick="location.href='@Url.Action("Invoice","OrdersHistory",new {id = item.OrderID})'" />
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            }
+        </div>
+    }
+
+    else
+    {
+        <div class="container m-5 p-4 align-items-center" style="width:100%;">
+
+            <section class="m-2 p-3">
+                <div class="card p-2">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-12 flex-center">
+                            <h7 class="mt-3"><b>There is no Item Added yet !</b></h7>
+                            <a class="btn btn-outline-deep-orange text-capitalize" href="@Url.Action("Index","Home")">Click Here To Shop ...</a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    }
+</div>
+
