@@ -22,7 +22,7 @@ namespace Ecommerce.Models
     
         public int OrderID { get; set; }
         public string OrderNumber { get; set; }
-        public string OrderedQty { get; set; }
+        public int OrderedQty { get; set; }
         public System.DateTime OrderedDate { get; set; }
         public string OrderStatus { get; set; }
         public Nullable<int> UserID { get; set; }

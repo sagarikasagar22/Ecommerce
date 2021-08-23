@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Ecommerce.Controllers
 {
     public class OrderHistoryController : Controller
     {
-        private OnlineStoreDataEntities3 _context = new OnlineStoreDataEntities3();
+        private OnlineStoreDataEntities4 _context = new OnlineStoreDataEntities4();
         // GET: OrderHistory
         public ActionResult Index()
         {
@@ -23,22 +24,42 @@ namespace Ecommerce.Controllers
         public ActionResult Items(Int64 orderid)
         {
             CustomItem product = new CustomItem();
+            CustomOrder _current = new CustomOrder();
             var res = SessionHelper.Instance.user;
 
-            //var currentOrder = _context.OrderItems.Where()
-            //    await _service.OrderItemList(orderid, res.Id);
-            //return View(currentOrder);
-            return View();
+            var currentOrder = _context.Orders.Where(x => x.OrderID == orderid).ToList();
+            foreach (var order in currentOrder)
+            {
+                 _current = GetOrder(order);
+                _current.Items = _context.OrderItems.Include(x => x.Item).Where(x => x.OrderID == orderid).ToList();
+                
+            }
+            return View(_current);
         }
-        //public async JsonResult RemoveOrder(Int64 orderItemId, Int64 orderId)
-        //{
-        //    DeleteOrderItemModel deleteOrderItem = new DeleteOrderItemModel();
-        //    deleteOrderItem.OrderId = orderId;
-        //    deleteOrderItem.OrderItemId = orderItemId;
+        public CustomOrder GetOrder(Order custom)
+        {
+            CustomOrder order = new CustomOrder()
+            {
+                UserID = (int)custom.UserID,
+                OrderID = custom.OrderID,
+                OrderedDate = custom.OrderedDate,
+                OrderNumber = custom.OrderNumber,
+                OrderStatus = custom.OrderStatus,
 
-        //    var res = await _service.RemoveOrderItems(deleteOrderItem);
+            };
+            return order;
+        }
+        public JsonResult RemoveOrder(int? orderItemId, int? orderId)
+        {
 
-        //    return Json(res, JsonRequestBehavior.AllowGet);
-        //}
+                //var res =_context.Orders.Where(x=>x.OrderID == orderId).FirstOrDefault();
+                //var result = _context.Orders.Remove(res);
+             
+                var res = _context.OrderItems.Where(x => x.ID == orderItemId).FirstOrDefault();
+                var result = _context.OrderItems.Remove(res);
+            
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

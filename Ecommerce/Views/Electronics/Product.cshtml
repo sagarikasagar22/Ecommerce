@@ -1,4 +1,4 @@
-﻿@model Ecommerce.Models.Item
+﻿@model Ecommerce.Models.Custom.CustomItem
 @{
     ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -40,7 +40,7 @@
                         <ul class="slides">
                             <li data-thumb="images/si1.jpg">
                                 <div class="thumb-image">
-                                    <img src="@Model.ImagePath" data-imagezoom="true" class="img-fluid" alt="">
+                                    <img src="@Model.ImgSrc" data-imagezoom="true" class="img-fluid" alt="">
                                 </div>
                             </li>
                             @*<li data-thumb="images/si2.jpg">
@@ -110,20 +110,25 @@
                 </div>
                 <div class="occasion-cart">
                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                        <form action="#" method="post">
-                            <fieldset>
-                                <input type="hidden" name="cmd" value="_cart" />
-                                <input type="hidden" name="add" value="1" />
-                                <input type="hidden" name="business" value=" " />
-                                <input type="hidden" name="item_name" value="Samsung Galaxy J7 Prime" />
-                                <input type="hidden" name="amount" value="200.00" />
-                                <input type="hidden" name="discount_amount" value="1.00" />
-                                <input type="hidden" name="currency_code" value="USD" />
-                                <input type="hidden" name="return" value=" " />
-                                <input type="hidden" name="cancel_return" value=" " />
-                                <input type="submit" name="submit" value="Add to cart" class="button" />
-                            </fieldset>
-                        </form>
+                        @if (Model.ItemQty > 0)
+                        {
+                            <div id="@Model.HideId" style="display:block;">
+                                @Html.Partial("_btnAddItem", Model)
+                            </div>
+                            <div id="@Model.ShowId" style="display:none;">
+                                @Html.Partial("_btnAddRemoveQty", Model)
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div id="@Model.HideId" style="display:none;">
+                                @Html.Partial("_btnAddItem", Model)
+                            </div>
+                            <div id="@Model.ShowId" style="display:block;">
+                                @Html.Partial("_btnAddRemoveQty", Model)
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

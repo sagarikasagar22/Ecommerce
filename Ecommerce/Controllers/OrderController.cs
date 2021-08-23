@@ -11,7 +11,7 @@ namespace Ecommerce.Controllers
 {
     public class OrderController : EcommerceBaseController
     {
-        private OnlineStoreDataEntities3 _context = new OnlineStoreDataEntities3();
+        private OnlineStoreDataEntities4 _context = new OnlineStoreDataEntities4();
         // GET: Order
         public ActionResult Index()
         {
@@ -24,39 +24,39 @@ namespace Ecommerce.Controllers
             else
             {
                 CustomOrder order = new CustomOrder();
+                OrderItem orderItem = new OrderItem();
                 order.OrderNumber = GenerateRandom();
                 order.OrderedDate = DateTime.Now;
                 order.OrderStatus = "Placed";
                 order.UserID = user.UserID;
-                order.CustomerName = user.FirstName + user.LastName;
                 
-                order.Items = new List<CustomItem>();
+                order.Items = new List<OrderItem>();
                 var cart = SessionHelper.Instance.CartProducts;
                 order.OrderedQty = cart.Products.Count;
-                foreach (var item in cart.Products)
-                {
-                    CustomItem custom = new CustomItem()
-                    {
-                        ImagePath = item.Product.ImagePath,
-                        ImgSrc = item.Product.ImgSrc,
-                        ItemCode = item.Product.ItemCode,
-                        ItemDescription = item.Product.ItemDescription,
-                        ItemID = item.Product.ItemID,
-                        ItemName = item.Product.ItemName,
-                        ItemPrice = item.Product.ItemPrice,
-                        ItemQty = item.Product.ItemQty,
-                        CategoryID = item.Product.CategoryID
 
-                    };
-                    order.Items.Add(custom);
-                }
                 var _order = GetOrder(order);
                 if (_order != null)
                 {
-                    _context.Orders.Add(_order);
-                    _context.SaveChanges();
+                   _context.Orders.Add(_order);
+                   var res =  _context.SaveChanges();
                     ViewBag.Message = "Order Placed Successfully !";
+                    if(res >0)
+                    {
+
+                        foreach (var item in cart.Products)
+                        {
+                            OrderItem custom = new OrderItem()
+                            {
+                                ItemID = item.Product.ItemID,
+                                OrderDate = DateTime.Now,
+                                OrderID = _order.OrderID
+                            };
+                            _context.OrderItems.Add(custom);
+                        }
+                        _context.SaveChanges();
+                    }
                 }
+
                 return View(order);
 
             }

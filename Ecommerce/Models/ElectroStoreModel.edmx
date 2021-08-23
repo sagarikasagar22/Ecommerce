@@ -20,7 +20,7 @@
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="ItemName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="ItemDescription" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="ImagePath" Type="varchar" MaxLength="50" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
           <Property Name="ItemPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ItemQty" Type="int" Nullable="false" />
         </EntityType>
@@ -39,7 +39,7 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderNumber" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="OrderedQty" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="OrderedQty" Type="int" Nullable="false" />
           <Property Name="OrderedDate" Type="datetime" Nullable="false" />
           <Property Name="OrderStatus" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserID" Type="int" />
@@ -217,7 +217,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="ItemName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ItemDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ItemPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ItemQty" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Items__CategoryI__49C3F6B7" FromRole="Items" ToRole="Categories" />
@@ -245,7 +245,7 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="OrderedQty" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="OrderedQty" Type="Int32" Nullable="false" />
           <Property Name="OrderedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
@@ -359,7 +359,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="OnlineStoreDataEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OnlineStoreDataEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
@@ -403,7 +403,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OnlineStoreDataModelStoreContainer" CdmEntityContainer="OnlineStoreDataEntities3">
+        <EntityContainerMapping StorageEntityContainer="OnlineStoreDataModelStoreContainer" CdmEntityContainer="OnlineStoreDataEntities4">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="OnlineStoreDataModel.Category">
               <MappingFragment StoreEntitySet="Categories">

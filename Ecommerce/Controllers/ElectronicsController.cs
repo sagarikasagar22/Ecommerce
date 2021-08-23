@@ -11,9 +11,9 @@ namespace Ecommerce.Controllers
 {
     public class ElectronicsController : EcommerceBaseController
     {
-        private OnlineStoreDataEntities3 _context = new OnlineStoreDataEntities3();
+        private OnlineStoreDataEntities4 _context = new OnlineStoreDataEntities4();
         // GET: Electronics
-        public ActionResult Index(string Search)
+        public ActionResult Index(string Search, int? id)
         {
             List<CustomItem> ItemList = new List<CustomItem>();
             CustomItem item = new CustomItem();
@@ -39,50 +39,50 @@ namespace Ecommerce.Controllers
                 Ecommerce.Helper.SessionHelper.Instance.Items = ItemList;
                 return View(ItemList);
             }
-            //else if(id == 5)
-            //{
-            //    var _ProdList = _context.Items.Where(x => x.CategoryID == id).ToList();
-            //    foreach (var prod in _ProdList)
-            //    {
-            //        string imgPath = Path.Combine("C:/Users/sagarika.sagar/source/repos/Ecommerce/Ecommerce/" + prod.ImagePath);
-            //        // string imgPath = Server.MapPath(prod.ImagePath);
-            //        // Convert image to byte array  
-            //        byte[] byteData = System.IO.File.ReadAllBytes(imgPath);
-            //        //Convert byte arry to base64string   
-            //        string imreBase64Data = Convert.ToBase64String(byteData);
-            //        string imgDataURL = string.Format("data:image/jpg;base64,{0}", imreBase64Data);
-            //        //Passing image data in viewbag to view  
-            //        item = GetItem(prod);
-            //        item.ImgSrc = imgDataURL;
-            //        ItemList.Add(item);
-            //    }
-            //    //IEnumerable<CustomItem> ProdList = (IEnumerable<CustomItem>)_ProdList;
-            //    //return View(ProdList);
-            //    Ecommerce.Helper.SessionHelper.Instance.Items = ItemList;
-            //    return View(ItemList);
-            //}
-            //else if (id == 4)
-            //{
-            //    var _ProdList = _context.Items.Where(x => x.CategoryID == id).ToList();
-            //    foreach (var prod in _ProdList)
-            //    {
-            //        string imgPath = Path.Combine("C:/Users/sagarika.sagar/source/repos/Ecommerce/Ecommerce/" + prod.ImagePath);
-            //        // string imgPath = Server.MapPath(prod.ImagePath);
-            //        // Convert image to byte array  
-            //        byte[] byteData = System.IO.File.ReadAllBytes(imgPath);
-            //        //Convert byte arry to base64string   
-            //        string imreBase64Data = Convert.ToBase64String(byteData);
-            //        string imgDataURL = string.Format("data:image/jpg;base64,{0}", imreBase64Data);
-            //        //Passing image data in viewbag to view  
-            //        item = GetItem(prod);
-            //        item.ImgSrc = imgDataURL;
-            //        ItemList.Add(item);
-            //    }
-            //    //IEnumerable<CustomItem> ProdList = (IEnumerable<CustomItem>)_ProdList;
-            //    //return View(ProdList);
-            //    Ecommerce.Helper.SessionHelper.Instance.Items = ItemList;
-            //    return View(ItemList);
-            //}
+            else if(id == 2)
+            {
+                var _ProdList = _context.Items.Where(x => x.CategoryID == id).ToList();
+                foreach (var prod in _ProdList)
+                {
+                    string imgPath = Path.Combine("C:/Users/sagarika.sagar/source/repos/Ecommerce/Ecommerce/" + prod.ImagePath);
+                    // string imgPath = Server.MapPath(prod.ImagePath);
+                    // Convert image to byte array  
+                    byte[] byteData = System.IO.File.ReadAllBytes(imgPath);
+                    //Convert byte arry to base64string   
+                    string imreBase64Data = Convert.ToBase64String(byteData);
+                    string imgDataURL = string.Format("data:image/jpg;base64,{0}", imreBase64Data);
+                    //Passing image data in viewbag to view  
+                    item = GetItem(prod);
+                    item.ImgSrc = imgDataURL;
+                    ItemList.Add(item);
+                }
+                //IEnumerable<CustomItem> ProdList = (IEnumerable<CustomItem>)_ProdList;
+                //return View(ProdList);
+                Ecommerce.Helper.SessionHelper.Instance.Items = ItemList;
+                return View(ItemList);
+            }
+            else if (id == 4)
+            {
+                var _ProdList = _context.Items.Where(x => x.CategoryID == id).ToList();
+                foreach (var prod in _ProdList)
+                {
+                    string imgPath = Path.Combine("C:/Users/sagarika.sagar/source/repos/Ecommerce/Ecommerce/" + prod.ImagePath);
+                    // string imgPath = Server.MapPath(prod.ImagePath);
+                    // Convert image to byte array  
+                    byte[] byteData = System.IO.File.ReadAllBytes(imgPath);
+                    //Convert byte arry to base64string   
+                    string imreBase64Data = Convert.ToBase64String(byteData);
+                    string imgDataURL = string.Format("data:image/jpg;base64,{0}", imreBase64Data);
+                    //Passing image data in viewbag to view  
+                    item = GetItem(prod);
+                    item.ImgSrc = imgDataURL;
+                    ItemList.Add(item);
+                }
+                //IEnumerable<CustomItem> ProdList = (IEnumerable<CustomItem>)_ProdList;
+                //return View(ProdList);
+                Ecommerce.Helper.SessionHelper.Instance.Items = ItemList;
+                return View(ItemList);
+            }
             else
             {
                 var _prodList = _context.Items.ToList();
@@ -125,14 +125,25 @@ namespace Ecommerce.Controllers
 
         public ActionResult Product(int? Id)
         {
+            CustomItem item = new CustomItem();
             try
             {
                 if(Id >0)
                 {
                     Item res = _context.Items.Where(x => x.ItemID == Id).FirstOrDefault();
-                    if (res != null)
+                    string imgPath = Path.Combine("C:/Users/sagarika.sagar/source/repos/Ecommerce/Ecommerce/" + res.ImagePath);
+                    // string imgPath = Server.MapPath(prod.ImagePath);
+                    // Convert image to byte array  
+                    byte[] byteData = System.IO.File.ReadAllBytes(imgPath);
+                    //Convert byte arry to base64string   
+                    string imreBase64Data = Convert.ToBase64String(byteData);
+                    string imgDataURL = string.Format("data:image/jpg;base64,{0}", imreBase64Data);
+                    //Passing image data in viewbag to view  
+                    item = GetItem(res);
+                    item.ImgSrc = imgDataURL;
+                    if (item != null)
                     {
-                        return View(res);
+                        return View(item);
                     }
                     else
                     {

@@ -13,10 +13,10 @@ namespace Ecommerce.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OnlineStoreDataEntities3 : DbContext
+    public partial class OnlineStoreDataEntities4 : DbContext
     {
-        public OnlineStoreDataEntities3()
-            : base("name=OnlineStoreDataEntities3")
+        public OnlineStoreDataEntities4()
+            : base("name=OnlineStoreDataEntities4")
         {
         }
     
