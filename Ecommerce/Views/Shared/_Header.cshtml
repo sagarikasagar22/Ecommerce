@@ -55,7 +55,11 @@
                     <!-- //cart details -->
                     @if (isUserLoggedIn)
                     {
-                        <div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+                <div class="col-1 top_nav_right text-center mt-sm-0 mt-2">
+                    <a class="btn" href="@Url.Action("Index", "OrderHistory", new { Area = "" })"><i class="fa fa-user"></i></a>
+
+                </div>
+                        <div class="col-1 top_nav_right text-center mt-sm-0 mt-2">
                             <a class="btn btn-md btn-info" href="@Url.Action("Logout", "Account", new { area = "" })">Logout</a>
                         </div>
                     }

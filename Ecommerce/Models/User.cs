@@ -11,15 +11,34 @@ namespace Ecommerce.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         public int UserID { get; set; }
+        [Required(ErrorMessage = "Please Enter FirstName")]
+        [StringLength(30, MinimumLength = 3)]
         public string FirstName { get; set; }
+        [Required(ErrorMessage = "Please Enter LastName")]
+        [StringLength(30, MinimumLength = 3)]
         public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Address")]
+        [StringLength(100, MinimumLength = 10)]
         public string Address { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Contact")]
+        [StringLength(10, ErrorMessage="Mobile Number must contains 10 digits", MinimumLength = 10)]
         public string MobileNumber { get; set; }
+
+
+        [Required(ErrorMessage = "Please Enter Email")]
+        [RegularExpression(".+@.+\\..+", ErrorMessage = "Mobile Number must contains 10 digits")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Please Enter Password")]
+        [StringLength(20, ErrorMessage = "Must be atleast 6 digits long", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }
